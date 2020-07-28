@@ -11,12 +11,22 @@ class AlarmCard {
     this.shiftEnd = shiftEnd;
   }
   double getShiftLength() {
-    int, int start = int.parse(this.shiftStart.substring(0,2)), int.parse(this.shiftStart.substring(2:5);
-    int end = int.parse(this.shiftEnd.substring(0,2));
+    int startH = int.parse(this.shiftStart.substring(0, 2));
+    int startM = int.parse(this.shiftStart.substring(2, 5));
+    int endH = int.parse(this.shiftEnd.substring(0, 2));
+    int endM = int.parse(this.shiftEnd.substring(2, 5));
+    return null; //shiftLen
 
-    return shiftLen
+    bool isOvernight() {
+      int startH = int.parse(this.shiftStart.substring(0, 2));
+      int endH = int.parse(this.shiftEnd.substring(0, 2));
+      if (endH < startH) {
+        return true;
+      } else {
+        return false;
+      }
+    }
   }
-
 }
 // example of how to use AlarmCard note the named variables
 // AlarmCard firstalarm =
