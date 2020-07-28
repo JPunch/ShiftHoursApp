@@ -1,6 +1,6 @@
-# shift_hours
+# test_flutter_app
 
-Flutter application to help shift workers manage wages
+Learning flutter application
 
 ## Getting Started
 

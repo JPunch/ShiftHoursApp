@@ -1,5 +1,5 @@
-name: shift_hours
-description: Flutter application to help shift workers manage wages
+name: test_flutter_app
+description: Learning flutter application
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
@@ -23,6 +23,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_datetime_picker: 1.3.8
 
 
   # The following adds the Cupertino Icons font to your application.
