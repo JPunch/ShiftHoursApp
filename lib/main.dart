@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'alarm_card.dart';
+import 'shift_card.dart';
 
 void main() => runApp(MaterialApp(
       home: JackCard(),
@@ -11,18 +11,18 @@ class JackCard extends StatefulWidget {
 }
 
 class _JackCardState extends State<JackCard> {
-  List<AlarmCard> alarms = [
-    AlarmCard(date: "25/07/2020", shiftStart: "09:00", shiftEnd: "15:30"),
-    AlarmCard(date: "26/07/2020", shiftStart: "09:00", shiftEnd: "17:00"),
-    AlarmCard(date: "27/07/2020", shiftStart: "11:00", shiftEnd: "18:00")
+  List<ShiftCard> shifts = [
+    ShiftCard(date: "25/07/2020", shiftStart: "09:00", shiftEnd: "15:30"),
+    ShiftCard(date: "26/07/2020", shiftStart: "09:00", shiftEnd: "17:00"),
+    ShiftCard(date: "27/07/2020", shiftStart: "11:00", shiftEnd: "18:00")
   ];
 
   @override
   Widget build(BuildContext context) {
-    List<Widget> alarmls = List();
-    for (var i = 0; i < alarms.length; i++) {
-      alarmls.add(makeAlarm(alarms[i]));
-      alarmls.add(SizedBox(
+    List<Widget> shiftls = List();
+    for (var i = 0; i < shifts.length; i++) {
+      shiftls.add(makeShift(shifts[i]));
+      shiftls.add(SizedBox(
         height: 20,
       ));
     }
@@ -36,14 +36,14 @@ class _JackCardState extends State<JackCard> {
       ),
       body: Padding(
         padding: EdgeInsets.fromLTRB(30, 40, 30, 40),
-        child: Column(children: alarmls),
+        child: Column(children: shiftls),
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add_alarm),
         backgroundColor: Colors.cyanAccent[500],
         onPressed: () {
           setState(() {
-            alarms.add(AlarmCard(
+            shifts.add(ShiftCard(
                 date: "28/07/2020", shiftEnd: "14:00", shiftStart: "07:00"));
           });
         },
@@ -51,7 +51,7 @@ class _JackCardState extends State<JackCard> {
     );
   }
 
-  Widget makeAlarm(AlarmCard alarm) {
+  Widget makeShift(ShiftCard shift) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: <Widget>[
@@ -65,7 +65,7 @@ class _JackCardState extends State<JackCard> {
               ),
             ),
             Text(
-              '${alarm.date}',
+              '${shift.date}',
               style: TextStyle(
                 color: Colors.greenAccent,
                 letterSpacing: 1.5,
@@ -85,7 +85,7 @@ class _JackCardState extends State<JackCard> {
               ),
             ),
             Text(
-              '${alarm.shiftStart}',
+              '${shift.shiftStart}',
               style: TextStyle(
                 color: Colors.greenAccent,
                 letterSpacing: 1.5,
@@ -105,7 +105,7 @@ class _JackCardState extends State<JackCard> {
               ),
             ),
             Text(
-              '${alarm.shiftEnd}',
+              '${shift.shiftEnd}',
               style: TextStyle(
                 color: Colors.greenAccent,
                 letterSpacing: 1.5,
