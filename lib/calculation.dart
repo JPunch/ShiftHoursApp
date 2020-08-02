@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:test_flutter_app/home.dart';
 
 class Calculation extends StatefulWidget {
   @override
@@ -11,7 +10,7 @@ class _CalculationState extends State<Calculation> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        Row(
+        child: Row(
           children: <Widget>[], // date from - date to use datepicker
         ),
       ),

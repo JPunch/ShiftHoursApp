@@ -1,4 +1,4 @@
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:flutter/material.dart';
 
 class ShiftCard {
   String date;
@@ -33,6 +33,74 @@ class ShiftCard {
     } else {
       return false;
     }
+  }
+
+  Widget makeShift() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: <Widget>[
+        Column(
+          children: <Widget>[
+            Text(
+              'Date',
+              style: TextStyle(
+                color: Colors.grey,
+                letterSpacing: 1.5,
+              ),
+            ),
+            Text(
+              '${this.date}',
+              style: TextStyle(
+                color: Colors.greenAccent,
+                letterSpacing: 1.5,
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+        Column(
+          children: <Widget>[
+            Text(
+              'Shift Start',
+              style: TextStyle(
+                color: Colors.grey,
+                letterSpacing: 1.5,
+              ),
+            ),
+            Text(
+              '${this.shiftStart}',
+              style: TextStyle(
+                color: Colors.greenAccent,
+                letterSpacing: 1.5,
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+        Column(
+          children: <Widget>[
+            Text(
+              'Shift End',
+              style: TextStyle(
+                color: Colors.grey,
+                letterSpacing: 1.5,
+              ),
+            ),
+            Text(
+              '${this.shiftEnd}',
+              style: TextStyle(
+                color: Colors.greenAccent,
+                letterSpacing: 1.5,
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
   }
 }
 // example of how to use AlarmCard note the named variables

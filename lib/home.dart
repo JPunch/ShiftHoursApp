@@ -7,22 +7,28 @@ void main() => runApp(MaterialApp(
     ));
 
 class JackCard extends StatefulWidget {
+  // List<ShiftCard> shifts;
+  // JackCard({Key key, @required this.shifts}) : super(key: key);
   @override
   _JackCardState createState() => _JackCardState();
 }
 
 class _JackCardState extends State<JackCard> {
   List<ShiftCard> shifts = [
+    // dummy shifts
     ShiftCard(date: "25/07/2020", shiftStart: "09:00", shiftEnd: "15:30"),
     ShiftCard(date: "26/07/2020", shiftStart: "09:00", shiftEnd: "17:00"),
     ShiftCard(date: "27/07/2020", shiftStart: "11:00", shiftEnd: "18:00")
   ];
+  final TextStyle navbar = TextStyle(
+      fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white70);
 
   @override
   Widget build(BuildContext context) {
+    // List<ShiftCard> shifts = widget.shifts;
     List<Widget> shiftls = List();
     for (var i = 0; i < shifts.length; i++) {
-      shiftls.add(makeShift(shifts[i]));
+      shiftls.add(shifts[i].makeShift());
       shiftls.add(SizedBox(
         height: 20,
       ));
@@ -30,7 +36,7 @@ class _JackCardState extends State<JackCard> {
     return Scaffold(
       backgroundColor: Colors.blueGrey[800],
       appBar: AppBar(
-        title: Text("Jack's First App"),
+        title: Text("Shifts Hours Pay"),
         centerTitle: true,
         backgroundColor: Colors.grey[850],
         elevation: 0.0,
@@ -40,6 +46,10 @@ class _JackCardState extends State<JackCard> {
         child: Column(children: shiftls),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        selectedFontSize: 20,
+        unselectedFontSize: 20,
+        iconSize: 30,
+        unselectedItemColor: Colors.white70,
         items: [
           BottomNavigationBarItem(
               icon: Icon(Icons.schedule), title: Text("Shifts")),
@@ -48,7 +58,7 @@ class _JackCardState extends State<JackCard> {
           BottomNavigationBarItem(
               icon: Icon(Icons.account_circle), title: Text("Profile"))
         ],
-        backgroundColor: Colors.deepPurpleAccent[900],
+        backgroundColor: Colors.grey[850],
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add_alarm),
@@ -57,74 +67,6 @@ class _JackCardState extends State<JackCard> {
           shiftPicker();
         },
       ),
-    );
-  }
-
-  Widget makeShift(ShiftCard shift) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: <Widget>[
-        Column(
-          children: <Widget>[
-            Text(
-              'Date',
-              style: TextStyle(
-                color: Colors.grey,
-                letterSpacing: 1.5,
-              ),
-            ),
-            Text(
-              '${shift.date}',
-              style: TextStyle(
-                color: Colors.greenAccent,
-                letterSpacing: 1.5,
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
-        Column(
-          children: <Widget>[
-            Text(
-              'Shift Start',
-              style: TextStyle(
-                color: Colors.grey,
-                letterSpacing: 1.5,
-              ),
-            ),
-            Text(
-              '${shift.shiftStart}',
-              style: TextStyle(
-                color: Colors.greenAccent,
-                letterSpacing: 1.5,
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
-        Column(
-          children: <Widget>[
-            Text(
-              'Shift End',
-              style: TextStyle(
-                color: Colors.grey,
-                letterSpacing: 1.5,
-              ),
-            ),
-            Text(
-              '${shift.shiftEnd}',
-              style: TextStyle(
-                color: Colors.greenAccent,
-                letterSpacing: 1.5,
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
-        ),
-      ],
     );
   }
 
