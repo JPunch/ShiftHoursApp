@@ -2,33 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'shift_card.dart';
 
-void main() => runApp(MaterialApp(
-      home: JackCard(),
-    ));
-
 class JackCard extends StatefulWidget {
-  // List<ShiftCard> shifts;
-  // JackCard({Key key, @required this.shifts}) : super(key: key);
+  List<ShiftCard> shifts;
+  JackCard({Key key, @required this.shifts}) : super(key: key);
   @override
-  _JackCardState createState() => _JackCardState();
+  _JackCardState createState() => _JackCardState(shifts);
 }
 
 class _JackCardState extends State<JackCard> {
-  List<ShiftCard> shifts = [
-    // dummy shifts
-    ShiftCard(date: "25/07/2020", shiftStart: "09:00", shiftEnd: "15:30"),
-    ShiftCard(date: "26/07/2020", shiftStart: "09:00", shiftEnd: "17:00"),
-    ShiftCard(date: "27/07/2020", shiftStart: "11:00", shiftEnd: "18:00")
-  ];
+  List<ShiftCard> shifts;
+  _JackCardState(this.shifts);
+  // List<ShiftCard> shifts = [
+  //   // dummy shifts
+  //   ShiftCard(date: "25/07/2020", shiftStart: "09:00", shiftEnd: "15:30"),
+  //   ShiftCard(date: "26/07/2020", shiftStart: "09:00", shiftEnd: "17:00"),
+  //   ShiftCard(date: "27/07/2020", shiftStart: "11:00", shiftEnd: "18:00")
+  // ];
   final TextStyle navbar = TextStyle(
       fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white70);
 
   @override
   Widget build(BuildContext context) {
-    // List<ShiftCard> shifts = widget.shifts;
+    print("second page made it brah");
     List<Widget> shiftls = List();
-    for (var i = 0; i < shifts.length; i++) {
-      shiftls.add(shifts[i].makeShift());
+    for (var i = 0; i < widget.shifts.length; i++) {
+      shiftls.add(widget.shifts[i].makeShift());
       shiftls.add(SizedBox(
         height: 20,
       ));
@@ -103,7 +101,7 @@ class _JackCardState extends State<JackCard> {
       },
     );
     setState(() {
-      shifts.add(
+      widget.shifts.add(
           ShiftCard(date: _date, shiftEnd: _shiftEnd, shiftStart: _shiftStart));
     });
   }
