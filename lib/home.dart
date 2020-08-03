@@ -12,12 +12,7 @@ class JackCard extends StatefulWidget {
 class _JackCardState extends State<JackCard> {
   List<ShiftCard> shifts;
   _JackCardState(this.shifts);
-  // List<ShiftCard> shifts = [
-  //   // dummy shifts
-  //   ShiftCard(date: "25/07/2020", shiftStart: "09:00", shiftEnd: "15:30"),
-  //   ShiftCard(date: "26/07/2020", shiftStart: "09:00", shiftEnd: "17:00"),
-  //   ShiftCard(date: "27/07/2020", shiftStart: "11:00", shiftEnd: "18:00")
-  // ];
+
   final TextStyle navbar = TextStyle(
       fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white70);
 
@@ -79,7 +74,11 @@ class _JackCardState extends State<JackCard> {
       showTitleActions: true,
       currentTime: DateTime.now(),
       onConfirm: (date) {
-        _date = "${date.day}/${date.month}/${date.year}";
+        if (date.day.toString().length == 1) {
+          _date = "0${date.day}/${date.month}/${date.year}";
+        } else {
+          _date = "${date.day}/${date.month}/${date.year}";
+        }
       },
     );
     await DatePicker.showTimePicker(
