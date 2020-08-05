@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'shift_card.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class JackCard extends StatefulWidget {
   List<ShiftCard> shifts;
@@ -13,8 +14,8 @@ class _JackCardState extends State<JackCard> {
   List<ShiftCard> shifts;
   _JackCardState(this.shifts);
 
-  final TextStyle navbar = TextStyle(
-      fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white70);
+  final TextStyle temp =
+      TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white);
 
   @override
   Widget build(BuildContext context) {
@@ -28,33 +29,17 @@ class _JackCardState extends State<JackCard> {
     }
     return Scaffold(
       backgroundColor: Colors.blueGrey[800],
-      appBar: AppBar(
-        title: Text("Shifts Hours Pay"),
-        centerTitle: true,
-        backgroundColor: Colors.grey[850],
-        elevation: 0.0,
-      ),
       body: Padding(
         padding: EdgeInsets.fromLTRB(30, 40, 30, 40),
         child: Column(children: shiftls),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        selectedFontSize: 20,
-        unselectedFontSize: 20,
-        iconSize: 30,
-        unselectedItemColor: Colors.white70,
-        items: [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.schedule), title: Text("Shifts")),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.account_balance), title: Text("Pay")),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.account_circle), title: Text("Profile"))
-        ],
-        backgroundColor: Colors.grey[850],
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add_alarm),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingActionButton.extended(
+        icon: Icon(Icons.add_alarm),
+        label: Text(
+          "Add Shift",
+          style: temp,
+        ),
         backgroundColor: Colors.cyanAccent[500],
         onPressed: () {
           shiftPicker();
@@ -67,7 +52,15 @@ class _JackCardState extends State<JackCard> {
     String _date;
     String _shiftStart;
     String _shiftEnd;
-    print("picky shifty");
+    // print("picky shifty");
+    // Fluttertoast.showToast(
+    //     msg: "Select date of shift",
+    //     toastLength: Toast.LENGTH_LONG,
+    //     fontSize: 20,
+    //     gravity: ToastGravity.CENTER,
+    //     backgroundColor: Colors.cyanAccent[500],
+    //     timeInSecForIosWeb: 4);
+    makeToast("Select date of shift");
     await DatePicker.showDatePicker(
       context,
       theme: DatePickerTheme(),
@@ -81,6 +74,7 @@ class _JackCardState extends State<JackCard> {
         }
       },
     );
+    makeToast("Select shift start time");
     await DatePicker.showTimePicker(
       context,
       showTitleActions: true,
@@ -90,6 +84,8 @@ class _JackCardState extends State<JackCard> {
         _shiftStart = time.toString().substring(11, 16);
       },
     );
+    makeToast("Select shift end time");
+
     await DatePicker.showTimePicker(
       context,
       showTitleActions: true,
@@ -99,9 +95,46 @@ class _JackCardState extends State<JackCard> {
         _shiftEnd = time.toString().substring(11, 16);
       },
     );
-    setState(() {
-      widget.shifts.add(
-          ShiftCard(date: _date, shiftEnd: _shiftEnd, shiftStart: _shiftStart));
-    });
+    if (_date == null) {
+      dateErrorMessage();
+    } else if (_shiftStart == null) {
+      dateErrorMessage();
+    } else if (_shiftEnd == null) {
+      dateErrorMessage();
+    } else {
+      setState(() {
+        widget.shifts.add(ShiftCard(
+            date: _date, shiftEnd: _shiftEnd, shiftStart: _shiftStart));
+      });
+    }
+  }
+
+  Future<void> dateErrorMessage() {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Shift picker alert"),
+            content: const Text(
+                "Please fill in all date and time fields to add a shift"),
+            actions: <Widget>[
+              FlatButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text("Ok"))
+            ],
+          );
+        });
+  }
+
+  Future<bool> makeToast(String label) {
+    return Fluttertoast.showToast(
+        msg: "$label",
+        toastLength: Toast.LENGTH_LONG,
+        fontSize: 20,
+        gravity: ToastGravity.CENTER,
+        backgroundColor: Colors.cyanAccent[500],
+        timeInSecForIosWeb: 3);
   }
 }
