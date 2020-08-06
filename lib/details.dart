@@ -11,9 +11,12 @@ class _DetailsState extends State<Details> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Colors.blueGrey[800],
-        body: Center(
-          child: Text(
-            "Details Page",
+        body: Padding(
+          padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
+          child: Center(
+            child: TextFormField(
+              initialValue: "Pay per hour",
+            ),
           ),
         ));
   }

@@ -19,7 +19,8 @@ class _CalculationState extends State<Calculation> {
   List<ShiftCard> shifts;
   _CalculationState(this.shifts);
   // text styles for rows
-  final TextStyle rowText = TextStyle(fontSize: 25, color: Colors.white);
+  final TextStyle rowTitle = TextStyle(fontSize: 25, color: Colors.grey);
+  final TextStyle rowValue = TextStyle(fontSize: 25, color: Colors.greenAccent);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,13 +31,12 @@ class _CalculationState extends State<Calculation> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              Text("Calculation page",
-                  style: TextStyle(fontSize: 25, color: Colors.white)),
+              // Text("Calculation page", style: TextStyle(fontSize: 25, color: Colors.white)),
               SizedBox(
                 height: 100,
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   SizedBox(
                     width: 40,
@@ -44,14 +44,20 @@ class _CalculationState extends State<Calculation> {
                   // TODO: add a button for select dates and then replace the button with the selected date
                   Column(
                     children: <Widget>[
-                      Text("Date from"),
-                      Text("Placeholder: select date")
+                      Text(
+                        "Date from",
+                        style: rowTitle,
+                      ),
+                      Text("Select date")
                     ],
                   ),
                   Column(
                     children: <Widget>[
-                      Text("Date to"),
-                      Text("Placeholder: select date")
+                      Text(
+                        "Date to",
+                        style: rowTitle,
+                      ),
+                      Text("Select date")
                     ],
                   ),
                   SizedBox(
@@ -63,11 +69,11 @@ class _CalculationState extends State<Calculation> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text("Gross pay :  ", style: rowText),
+                  Text("Gross pay :  ", style: rowTitle),
                   SizedBox(
                     width: 20,
                   ),
-                  Text("$grossPay", style: rowText)
+                  Text("$grossPay", style: rowValue)
                 ], // date from - date to use datepicker
               ),
               SizedBox(
@@ -76,11 +82,11 @@ class _CalculationState extends State<Calculation> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text("Tax paid :  ", style: rowText),
+                  Text("Tax :  ", style: rowTitle),
                   SizedBox(
                     width: 20,
                   ),
-                  Text("$grossPay", style: rowText)
+                  Text("$tax", style: rowValue)
                 ], // date from - date to use datepicker
               ),
               SizedBox(
@@ -89,11 +95,11 @@ class _CalculationState extends State<Calculation> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text("National insurance paid :  ", style: rowText),
+                  Text("National insurance :  ", style: rowTitle),
                   SizedBox(
                     width: 20,
                   ),
-                  Text("$grossPay", style: rowText)
+                  Text("$ni", style: rowValue)
                 ], // date from - date to use datepicker
               ),
               SizedBox(
@@ -102,11 +108,11 @@ class _CalculationState extends State<Calculation> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text("Take home pay :  ", style: rowText),
+                  Text("Take home pay :  ", style: rowTitle),
                   SizedBox(
                     width: 20,
                   ),
-                  Text("$grossPay", style: rowText)
+                  Text("$takeHomePay", style: rowValue)
                 ], // date from - date to use datepicker
               ),
             ],

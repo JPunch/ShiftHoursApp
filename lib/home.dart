@@ -19,7 +19,7 @@ class _JackCardState extends State<JackCard> {
 
   @override
   Widget build(BuildContext context) {
-    print("second page made it brah");
+    // print("second page made it brah");
     List<Widget> shiftls = List();
     for (var i = 0; i < widget.shifts.length; i++) {
       shiftls.add(widget.shifts[i].makeShift());
@@ -53,13 +53,6 @@ class _JackCardState extends State<JackCard> {
     String _shiftStart;
     String _shiftEnd;
     // print("picky shifty");
-    // Fluttertoast.showToast(
-    //     msg: "Select date of shift",
-    //     toastLength: Toast.LENGTH_LONG,
-    //     fontSize: 20,
-    //     gravity: ToastGravity.CENTER,
-    //     backgroundColor: Colors.cyanAccent[500],
-    //     timeInSecForIosWeb: 4);
     makeToast("Select date of shift");
     await DatePicker.showDatePicker(
       context,
