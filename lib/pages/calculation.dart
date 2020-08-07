@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../classes/shift_card.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
 class Calculation extends StatefulWidget {
   List<ShiftCard> shifts;
@@ -10,7 +11,8 @@ class Calculation extends StatefulWidget {
 
 // TODO: finish page setup
 class _CalculationState extends State<Calculation> {
-  //Calculation should retutn these values to screen
+  //Calculation should return these values to screen
+  Future<double> totalHours;
   Future<double> grossPay;
   Future<double> takeHomePay;
   Future<double> tax;
@@ -39,7 +41,7 @@ class _CalculationState extends State<Calculation> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   SizedBox(
-                    width: 40,
+                    width: 30,
                   ),
                   // TODO: add a button for select dates and then replace the button with the selected date
                   Column(
@@ -48,7 +50,7 @@ class _CalculationState extends State<Calculation> {
                         "Date from",
                         style: rowTitle,
                       ),
-                      Text("Select date")
+                      DateButton()
                     ],
                   ),
                   Column(
@@ -57,15 +59,28 @@ class _CalculationState extends State<Calculation> {
                         "Date to",
                         style: rowTitle,
                       ),
-                      Text("Select date")
+                      DateButton()
                     ],
                   ),
                   SizedBox(
-                    width: 40,
+                    width: 30,
                   )
                 ],
               ),
               SizedBox(height: 50),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text("Total Hours :  ", style: rowTitle),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  Text("$totalHours", style: rowValue)
+                ], // date from - date to use datepicker
+              ),
+              SizedBox(
+                height: 30,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -139,11 +154,61 @@ class PayButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton.extended(
-        icon: Icon(Icons.attach_money),
-        label: Text(
-          "Calculate Pay",
-          style: temp,
+      icon: Icon(Icons.attach_money),
+      label: Text(
+        "Calculate Pay",
+        style: temp,
+      ),
+      onPressed: () {},
+    );
+  }
+}
+
+class DateButton extends StatefulWidget {
+  static final TextStyle rowValue =
+      TextStyle(fontSize: 25, color: Colors.greenAccent);
+
+  @override
+  _DateButtonState createState() => _DateButtonState();
+}
+
+class _DateButtonState extends State<DateButton> {
+  String date;
+
+  @override
+  Widget build(BuildContext context) {
+    return selector(this.date, context);
+  }
+
+  Widget selector(String dates, BuildContext context) {
+    if (date == null) {
+      return button("Select Date", context);
+    } else {
+      return button("$dates", context);
+    }
+  }
+
+  Widget button(String dates, BuildContext context) {
+    return RaisedButton(
+        child: Text(
+          "$dates",
+          style: DateButton.rowValue,
         ),
-        onPressed: null);
+        color: Colors.blue,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        onPressed: () {
+          DatePicker.showDatePicker(
+            context,
+            theme: DatePickerTheme(),
+            showTitleActions: true,
+            currentTime: DateTime.now(),
+            onConfirm: (dates) {
+              String _date = "${dates.day}/${dates.month}/${dates.year}";
+              setState(() {
+                date = _date;
+              });
+            },
+          );
+        });
   }
 }
