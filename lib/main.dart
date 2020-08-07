@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:test_flutter_app/details.dart';
-import 'package:test_flutter_app/calculation.dart';
-import 'shift_card.dart';
-import 'home.dart';
+import 'package:test_flutter_app/pages/details.dart';
+import 'package:test_flutter_app/pages/calculation.dart';
+import 'classes/shift_card.dart';
+import 'pages/home.dart';
 
 List<ShiftCard> shifts = [
   // dummy shifts

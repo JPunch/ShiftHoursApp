@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'shift_card.dart';
+import '../classes/shift_card.dart';
 
 class Calculation extends StatefulWidget {
   List<ShiftCard> shifts;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
-import 'shift_card.dart';
+import '../classes/shift_card.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class JackCard extends StatefulWidget {
