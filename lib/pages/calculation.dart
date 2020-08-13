@@ -12,19 +12,21 @@ class Calculation extends StatefulWidget {
 // TODO: finish page setup
 class _CalculationState extends State<Calculation> {
   //Calculation should return these values to screen
-  Future<double> totalHours;
+  List<ShiftCard> shifts;
+  double totalHours;
   Future<double> grossPay;
   Future<double> takeHomePay;
   Future<double> tax;
   Future<double> ni;
   //The shifts to be used for the calculations from the shifts screen
-  List<ShiftCard> shifts;
   _CalculationState(this.shifts);
+
   // text styles for rows
   final TextStyle rowTitle = TextStyle(fontSize: 25, color: Colors.grey);
   final TextStyle rowValue = TextStyle(fontSize: 25, color: Colors.greenAccent);
   @override
   Widget build(BuildContext context) {
+    getHours(this.shifts);
     return Scaffold(
       backgroundColor: Colors.blueGrey[800],
       body: Padding(
@@ -139,12 +141,33 @@ class _CalculationState extends State<Calculation> {
     );
   }
 
-  static double getHours(List<ShiftCard> shifts) {
-    double totalHours = 0;
+  double getHours(List<ShiftCard> shifts) {
+    double totalHours = 0; //with base shifts 21.5 hours is total
     for (var i = 0; i < shifts.length; i++) {
       totalHours += shifts[i].getShiftLength();
     }
-    return totalHours;
+    this.totalHours = totalHours;
+  }
+
+  List<ShiftCard> shiftsInDate(DateButton buttonFrom, DateButton buttonTo) {
+    List<ShiftCard> shiftsInDate;
+    List<String> dateFrom = buttonFrom.date.split("/");
+    List<String> dateTo = buttonTo.date.split("/");
+    DateTime dateTimeFrom = DateTime(
+        int.parse(dateFrom[2]), int.parse(dateFrom[1]), int.parse(dateFrom[0]));
+    DateTime dateTimeTo = DateTime(
+        int.parse(dateTo[2]), int.parse(dateFrom[1]), int.parse(dateFrom[0]));
+    for (ShiftCard shift in widget.shifts) {
+      DateTime current = shift.genDateTime();
+      if (current.isBefore(dateTimeTo)) {
+        if (current.isAfter(dateTimeFrom)) {
+          shiftsInDate.add(shift);
+        }
+      }
+      // return shiftsInDate;
+      // make a datetime out of each shift nd then check is before
+      // add method to return a date time into shift card
+    }
   }
 }
 
@@ -165,6 +188,7 @@ class PayButton extends StatelessWidget {
 }
 
 class DateButton extends StatefulWidget {
+  String date;
   static final TextStyle rowValue =
       TextStyle(fontSize: 25, color: Colors.greenAccent);
 
@@ -184,6 +208,9 @@ class _DateButtonState extends State<DateButton> {
     if (date == null) {
       return button("Select Date", context);
     } else {
+      setState(() {
+        widget.date = "$dates";
+      });
       return button("$dates", context);
     }
   }
