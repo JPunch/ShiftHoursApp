@@ -15,7 +15,11 @@ class _DetailsState extends State<Details> {
           padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
           child: Center(
             child: TextFormField(
-              initialValue: "Pay per hour",
+              decoration: const InputDecoration(
+                  icon: Icon(Icons.attach_money,
+                      size: 35), //locate lower, more central
+                  hintText: "How much do you get paid per hour?",
+                  labelText: "Pay Per Hour *"),
             ),
           ),
         ));

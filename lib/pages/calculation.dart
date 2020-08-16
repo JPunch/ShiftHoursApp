@@ -9,7 +9,6 @@ class Calculation extends StatefulWidget {
   _CalculationState createState() => _CalculationState(shifts);
 }
 
-// TODO: finish page setup
 class _CalculationState extends State<Calculation> {
   //Calculation should return these values to screen
   List<ShiftCard> shifts;
@@ -18,6 +17,8 @@ class _CalculationState extends State<Calculation> {
   Future<double> takeHomePay;
   Future<double> tax;
   Future<double> ni;
+  DateButton dateFrom = DateButton();
+  DateButton dateTo = DateButton();
   //The shifts to be used for the calculations from the shifts screen
   _CalculationState(this.shifts);
 
@@ -26,6 +27,8 @@ class _CalculationState extends State<Calculation> {
   final TextStyle rowValue = TextStyle(fontSize: 25, color: Colors.greenAccent);
   @override
   Widget build(BuildContext context) {
+    /*maybe add if statement to check if dateTo and DateFrom exist
+    before running the method for them*/
     getHours(this.shifts);
     return Scaffold(
       backgroundColor: Colors.blueGrey[800],
@@ -37,7 +40,7 @@ class _CalculationState extends State<Calculation> {
             children: <Widget>[
               // Text("Calculation page", style: TextStyle(fontSize: 25, color: Colors.white)),
               SizedBox(
-                height: 100,
+                height: 30,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -52,7 +55,7 @@ class _CalculationState extends State<Calculation> {
                         "Date from",
                         style: rowTitle,
                       ),
-                      DateButton()
+                      dateFrom
                     ],
                   ),
                   Column(
@@ -61,7 +64,7 @@ class _CalculationState extends State<Calculation> {
                         "Date to",
                         style: rowTitle,
                       ),
-                      DateButton()
+                      dateTo
                     ],
                   ),
                   SizedBox(
@@ -141,7 +144,7 @@ class _CalculationState extends State<Calculation> {
     );
   }
 
-  double getHours(List<ShiftCard> shifts) {
+  void getHours(List<ShiftCard> shifts) {
     double totalHours = 0; //with base shifts 21.5 hours is total
     for (var i = 0; i < shifts.length; i++) {
       totalHours += shifts[i].getShiftLength();
@@ -149,7 +152,7 @@ class _CalculationState extends State<Calculation> {
     this.totalHours = totalHours;
   }
 
-  List<ShiftCard> shiftsInDate(DateButton buttonFrom, DateButton buttonTo) {
+  List<ShiftCard> getInDate(DateButton buttonFrom, DateButton buttonTo) {
     List<ShiftCard> shiftsInDate;
     List<String> dateFrom = buttonFrom.date.split("/");
     List<String> dateTo = buttonTo.date.split("/");
@@ -164,10 +167,10 @@ class _CalculationState extends State<Calculation> {
           shiftsInDate.add(shift);
         }
       }
-      // return shiftsInDate;
       // make a datetime out of each shift nd then check is before
       // add method to return a date time into shift card
     }
+    return shiftsInDate;
   }
 }
 

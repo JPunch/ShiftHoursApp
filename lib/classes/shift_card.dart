@@ -4,23 +4,29 @@ class ShiftCard {
   String date;
   String shiftStart;
   String shiftEnd;
+  int day;
+  int month;
+  int year;
 
-  ShiftCard({String shiftStart, String shiftEnd, String date}) {
+  ShiftCard({this.shiftStart, this.shiftEnd, this.date}) {
     this.date = date;
     this.shiftStart = shiftStart;
     this.shiftEnd = shiftEnd;
+    this.day = int.parse(date.split("/")[0]);
+    this.month = int.parse(date.split("/")[1]);
+    this.year = int.parse(date.split("/")[2]);
   }
   double getShiftLength() {
     int startH = int.parse(this.shiftStart.substring(0, 2));
-    int startM = int.parse(this.shiftStart.substring(2, 5));
+    int startM = int.parse(this.shiftStart.substring(3, 5));
     int endH = int.parse(this.shiftEnd.substring(0, 2));
-    int endM = int.parse(this.shiftEnd.substring(2, 5));
+    int endM = int.parse(this.shiftEnd.substring(3, 5));
     if (this.isOvernight()) {
       // double shiftLen = ((endH - startH) * 60 + (endM - startM)) / 60;
-      return ((endH - startH) * 60 + (endM - startM)) / 60;
+      return (((24 - startH) + endH) * 60 + (endM - startM)) / 60;
     } else {
       // double shiftLen = (((24 - startH) + endH) * 60 + (endM - startM)) / 60;
-      return (((24 - startH) + endH) * 60 + (endM - startM)) / 60;
+      return ((endH - startH) * 60 + (endM - startM)) / 60;
     }
     // return shiftLen;
   }
@@ -33,6 +39,10 @@ class ShiftCard {
     } else {
       return false;
     }
+  }
+
+  DateTime genDateTime() {
+    return DateTime(this.year, this.month, this.day);
   }
 
   Widget makeShift() {
@@ -99,6 +109,15 @@ class ShiftCard {
             ),
           ],
         ),
+        Column(children: <Widget>[
+          FlatButton(
+            child: Icon(
+              Icons.delete,
+              color: Colors.red,
+            ),
+            onPressed: null,
+          )
+        ])
       ],
     );
   }
