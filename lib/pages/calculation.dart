@@ -8,7 +8,6 @@ class Calculation extends StatefulWidget {
   _CalculationState createState() => _CalculationState(shifts);
 }
 
-// TODO: finish page setup
 class _CalculationState extends State<Calculation> {
   //Calculation should retutn these values to screen
   Future<double> grossPay;
@@ -41,7 +40,6 @@ class _CalculationState extends State<Calculation> {
                   SizedBox(
                     width: 40,
                   ),
-                  // TODO: add a button for select dates and then replace the button with the selected date
                   Column(
                     children: <Widget>[
                       Text(

@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 
-class ShiftCard {
-  String date;
+class ShiftCard extends StatelessWidget {
+  DateTime date;
+  String displayDate;
   String shiftStart;
   String shiftEnd;
+  ShiftCard({this.displayDate, this.shiftStart, this.shiftEnd, this.date});
 
-  ShiftCard({String shiftStart, String shiftEnd, String date}) {
-    this.date = date;
-    this.shiftStart = shiftStart;
-    this.shiftEnd = shiftEnd;
-  }
   double getShiftLength() {
     int startH = int.parse(this.shiftStart.substring(0, 2));
     int startM = int.parse(this.shiftStart.substring(2, 5));
@@ -35,7 +32,19 @@ class ShiftCard {
     }
   }
 
-  Widget makeShift() {
+  TextStyle header = TextStyle(
+    color: Colors.grey,
+    letterSpacing: 1.5,
+  );
+
+  TextStyle content = TextStyle(
+    color: Colors.greenAccent,
+    letterSpacing: 1.5,
+    fontSize: 14,
+    fontWeight: FontWeight.bold,
+  );
+  @override
+  Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: <Widget>[
@@ -43,66 +52,27 @@ class ShiftCard {
           children: <Widget>[
             Text(
               'Date',
-              style: TextStyle(
-                color: Colors.grey,
-                letterSpacing: 1.5,
-              ),
+              style: header,
             ),
-            Text(
-              '${this.date}',
-              style: TextStyle(
-                color: Colors.greenAccent,
-                letterSpacing: 1.5,
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            Text('${this.displayDate}', style: content),
           ],
         ),
         Column(
           children: <Widget>[
-            Text(
-              'Shift Start',
-              style: TextStyle(
-                color: Colors.grey,
-                letterSpacing: 1.5,
-              ),
-            ),
-            Text(
-              '${this.shiftStart}',
-              style: TextStyle(
-                color: Colors.greenAccent,
-                letterSpacing: 1.5,
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            Text('Shift Start', style: header),
+            Text('${this.shiftStart}', style: content),
           ],
         ),
         Column(
           children: <Widget>[
-            Text(
-              'Shift End',
-              style: TextStyle(
-                color: Colors.grey,
-                letterSpacing: 1.5,
-              ),
-            ),
-            Text(
-              '${this.shiftEnd}',
-              style: TextStyle(
-                color: Colors.greenAccent,
-                letterSpacing: 1.5,
-                fontSize: 14,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
+            Text('Shift End', style: header),
+            Text('${this.shiftEnd}', style: content),
           ],
         ),
       ],
     );
   }
 }
-// example of how to use AlarmCard note the named variables
-// AlarmCard firstalarm =
-//     AlarmCard(shiftStart: "9:00", shiftEnd: "15:30", date: "25/07/2020");
+// example of how to use ShiftCard note the named variables
+// ShiftCard firstShift =
+//     ShiftCard(shiftStart: "9:00", shiftEnd: "15:30", date: "25/07/2020");

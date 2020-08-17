@@ -53,8 +53,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         containerHeight: 210.0,
                       ),
                       showTitleActions: true,
-                      minTime: DateTime(2000, 1, 1),
-                      maxTime: DateTime(2022, 12, 31), onConfirm: (date) {
+                      minTime: DateTime(2016, 1, 1),
+                      maxTime: DateTime(2030, 12, 31), onConfirm: (date) {
                     print('confirm $date');
                     _date = '${date.year} - ${date.month} - ${date.day}';
                     setState(() {});
