@@ -23,6 +23,13 @@ class _CalculationState extends State<Calculation> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.blueGrey[600],
+        title: Text(
+          "Get that PAY",
+          textAlign: TextAlign.center,
+        ),
+      ),
       backgroundColor: Colors.blueGrey[800],
       body: Padding(
         padding: const EdgeInsets.fromLTRB(10, 20, 10, 10),
@@ -32,7 +39,7 @@ class _CalculationState extends State<Calculation> {
             children: <Widget>[
               // Text("Calculation page", style: TextStyle(fontSize: 25, color: Colors.white)),
               SizedBox(
-                height: 100,
+                height: 50,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,

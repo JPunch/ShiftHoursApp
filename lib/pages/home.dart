@@ -36,66 +36,87 @@ class _HomeState extends State<Home> {
 
   final TextStyle temp =
       TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white);
+  final TextStyle header = TextStyle();
 
   @override
   Widget build(BuildContext context) {
     // print("second page made it brah");
     List<Widget> shiftls = List();
+    shiftls.add(SizedBox(height: 20));
     for (var i = 0; i < shifts.length; i++) {
+      shiftls.add(SizedBox(
+        height: 20,
+      ));
       shiftls.add(shifts[i]);
-      // shiftls.add(SizedBox(
-      //   height: 20,
-      // ));
     }
+    // print(shiftls);
     return Scaffold(
       backgroundColor: Colors.blueGrey[800],
       body: Padding(
           padding: EdgeInsets.fromLTRB(30, 40, 30, 40),
           child: Column(
-            children: [
-              Row(
-                children: [
-                  FlatButton.icon(
-                      onPressed: () async {
-                        Navigator.pushNamed(context, "/calculation",
-                            arguments: data);
-                        //go to calculation page maybe await response
-                      },
-                      icon: Icon(Icons.account_balance_sharp),
-                      label: Text("Pay")),
-                  FlatButton.icon(
-                      onPressed: () async {
-                        Navigator.pushNamed(context, "/details");
-                        //go to details page and await response to add details to map
-                      },
-                      icon: Icon(Icons.account_circle_sharp),
-                      label: Text("Details"))
-                ],
-              ),
+              children: wrap(
+                  Row(
+                    children: [
+                      Expanded(
+                        child: FlatButton.icon(
+                            onPressed: () async {
+                              Navigator.pushNamed(context, "/calculation",
+                                  arguments: data);
+                              //go to calculation page maybe await response
+                            },
+                            icon: Icon(
+                              Icons.account_balance_sharp,
+                              color: Colors.white,
+                              size: 40,
+                            ),
+                            label: Text(
+                              "Pay",
+                              style: temp,
+                            )),
+                      ),
+                      Expanded(
+                        child: FlatButton.icon(
+                            onPressed: () async {
+                              Navigator.pushNamed(context, "/details");
+                              //go to details page and await response to add details to map
+                            },
+                            icon: Icon(
+                              Icons.account_circle_sharp,
+                              color: Colors.white,
+                              size: 40,
+                            ),
+                            label: Text(
+                              "Details",
+                              style: temp,
+                            )),
+                      )
+                    ],
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  ),
+                  shiftls))
+          // ListView.builder(
+          //     itemCount: shiftls.length,
+          //     itemBuilder: (context, index) {
+          //       ShiftCard shift = shiftls[index];
 
-              // ListView.builder(
-              //     itemCount: shiftls.length,
-              //     itemBuilder: (context, index) {
-              //       ShiftCard shift = shiftls[index];
-
-              //       return Dismissible(
-              //           key: Key(shift.displayDate +
-              //               shift.shiftStart +
-              //               shift.shiftEnd),
-              //           onDismissed: (direction) {
-              //             setState(() {
-              //               shiftls.removeAt(index);
-              //             });
-              //             Scaffold.of(context).showSnackBar(
-              //                 SnackBar(content: Text("Shift Removed")));
-              //           },
-              //           background: Container(
-              //             color: Colors.cyanAccent,
-              //           ),
-              //           child: shift);
-              //     }),
-            ],
-          )),
+          //       return Dismissible(
+          //           key: Key(shift.displayDate +
+          //               shift.shiftStart +
+          //               shift.shiftEnd),
+          //           onDismissed: (direction) {
+          //             setState(() {
+          //               shiftls.removeAt(index);
+          //             });
+          //             Scaffold.of(context).showSnackBar(
+          //                 SnackBar(content: Text("Shift Removed")));
+          //           },
+          //           background: Container(
+          //             color: Colors.cyanAccent,
+          //           ),
+          //           child: shift);
+          //     }),
+          ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton.extended(
         icon: Icon(Icons.add_alarm),
@@ -196,5 +217,10 @@ class _HomeState extends State<Home> {
         gravity: ToastGravity.CENTER,
         backgroundColor: Colors.cyanAccent[500],
         timeInSecForIosWeb: 3);
+  }
+
+  static List<Widget> wrap(Widget row1, List<Widget> widgeLs) {
+    widgeLs.insert(0, row1);
+    return widgeLs;
   }
 }
