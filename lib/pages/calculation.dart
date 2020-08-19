@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../classes/shift_card.dart';
+import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
 class Calculation extends StatefulWidget {
   List<ShiftCard> shifts;
@@ -150,5 +151,58 @@ class PayButton extends StatelessWidget {
           style: temp,
         ),
         onPressed: null);
+  }
+}
+
+class DateButton extends StatefulWidget {
+  String date;
+  static final TextStyle rowValue =
+      TextStyle(fontSize: 25, color: Colors.greenAccent);
+
+  @override
+  _DateButtonState createState() => _DateButtonState();
+}
+
+class _DateButtonState extends State<DateButton> {
+  String date;
+
+  @override
+  Widget build(BuildContext context) {
+    return selector(this.date, context);
+  }
+
+  Widget selector(String dates, BuildContext context) {
+    if (date == null) {
+      return button("Select Date", context);
+    } else {
+      setState(() {
+        widget.date = "$dates";
+      });
+      return button("$dates", context);
+    }
+  }
+
+  Widget button(String dates, BuildContext context) {
+    return RaisedButton(
+        child: Text(
+          "$dates",
+          style: DateButton.rowValue,
+        ),
+        color: Colors.blue,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        onPressed: () {
+          DatePicker.showDatePicker(
+            context,
+            theme: DatePickerTheme(),
+            showTitleActions: true,
+            currentTime: DateTime.now(),
+            onConfirm: (dates) {
+              String _date = "${dates.day}/${dates.month}/${dates.year}";
+              setState(() {
+                date = _date;
+              });
+            },
+          );
+        });
   }
 }
