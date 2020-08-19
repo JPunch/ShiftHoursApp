@@ -43,7 +43,7 @@ class _CalculationState extends State<Calculation> {
                 height: 50,
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
                   SizedBox(
                     width: 40,
@@ -54,7 +54,8 @@ class _CalculationState extends State<Calculation> {
                         "Date from",
                         style: rowTitle,
                       ),
-                      Text("Select date")
+                      DateButton()
+                      // Text("Select date")
                     ],
                   ),
                   Column(
@@ -63,7 +64,8 @@ class _CalculationState extends State<Calculation> {
                         "Date to",
                         style: rowTitle,
                       ),
-                      Text("Select date")
+                      DateButton()
+                      // Text("Select date")
                     ],
                   ),
                   SizedBox(
@@ -157,7 +159,7 @@ class PayButton extends StatelessWidget {
 class DateButton extends StatefulWidget {
   String date;
   static final TextStyle rowValue =
-      TextStyle(fontSize: 25, color: Colors.greenAccent);
+      TextStyle(fontSize: 15, color: Colors.greenAccent);
 
   @override
   _DateButtonState createState() => _DateButtonState();
