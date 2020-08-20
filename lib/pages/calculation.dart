@@ -9,6 +9,7 @@ class Calculation extends StatefulWidget {
   _CalculationState createState() => _CalculationState(shifts);
 }
 
+// TODO: add button class into main page class and then access the buttons values for get shifts
 class _CalculationState extends State<Calculation> {
   //Calculation should retutn these values to screen
   Future<double> grossPay;
