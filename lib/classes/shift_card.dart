@@ -9,17 +9,14 @@ class ShiftCard extends StatelessWidget {
 
   double getShiftLength() {
     int startH = int.parse(this.shiftStart.substring(0, 2));
-    int startM = int.parse(this.shiftStart.substring(2, 5));
+    int startM = int.parse(this.shiftStart.substring(3, 5));
     int endH = int.parse(this.shiftEnd.substring(0, 2));
-    int endM = int.parse(this.shiftEnd.substring(2, 5));
+    int endM = int.parse(this.shiftEnd.substring(3, 5));
     if (this.isOvernight()) {
-      // double shiftLen = ((endH - startH) * 60 + (endM - startM)) / 60;
-      return ((endH - startH) * 60 + (endM - startM)) / 60;
-    } else {
-      // double shiftLen = (((24 - startH) + endH) * 60 + (endM - startM)) / 60;
       return (((24 - startH) + endH) * 60 + (endM - startM)) / 60;
+    } else {
+      return ((endH - startH) * 60 + (endM - startM)) / 60;
     }
-    // return shiftLen;
   }
 
   bool isOvernight() {

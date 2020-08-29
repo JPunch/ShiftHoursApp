@@ -29,7 +29,9 @@ void main() {
     initialRoute: "/",
     routes: {
       "/": (context) => Home(),
-      "/calculation": (context) => Calculation(), //shifts: data["shiftls"]
+      "/calculation": (context) => Calculation(
+            data: data,
+          ), //shifts: data["shiftls"]
       "/details": (context) => Details()
     },
   ));

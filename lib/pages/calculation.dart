@@ -3,27 +3,55 @@ import '../classes/shift_card.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
 class Calculation extends StatefulWidget {
-  List<ShiftCard> shifts;
-  Calculation({Key key, @required this.shifts}) : super(key: key);
+  Map data;
+  Calculation({Key key, @required this.data}) : super(key: key);
   @override
-  _CalculationState createState() => _CalculationState(shifts);
+  _CalculationState createState() => _CalculationState(data["shiftls"]);
 }
 
 // TODO: add button class into main page class and then access the buttons values for get shifts
 class _CalculationState extends State<Calculation> {
-  //Calculation should retutn these values to screen
+  //Calculation should return these values to screen
+  double totalHours;
   Future<double> grossPay;
   Future<double> takeHomePay;
   Future<double> tax;
   Future<double> ni;
+  DateTime datefrom;
+  DateTime dateto;
   //The shifts to be used for the calculations from the shifts screen
   List<ShiftCard> shifts;
   _CalculationState(this.shifts);
   // text styles for rows
   final TextStyle rowTitle = TextStyle(fontSize: 25, color: Colors.grey);
   final TextStyle rowValue = TextStyle(fontSize: 25, color: Colors.greenAccent);
+  final TextStyle temp =
+      TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white);
+
+  String dateCheck(DateTime date) {
+    if (date == null) {
+      return "Select Date";
+    } else {
+      return formatDateTime(date);
+    }
+  }
+
+  String formatDateTime(DateTime date) {
+    if (date.day.toString().length == 1) {
+      return "0${date.day}/${date.month}/${date.year}";
+    } else {
+      return "${date.day}/${date.month}/${date.year}";
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    if (this.dateto != null) {
+      if (this.datefrom != null) {
+        this.totalHours = getHours(shifts, this.datefrom, this.dateto);
+      }
+    }
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blueGrey[600],
@@ -39,7 +67,6 @@ class _CalculationState extends State<Calculation> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              // Text("Calculation page", style: TextStyle(fontSize: 25, color: Colors.white)),
               SizedBox(
                 height: 50,
               ),
@@ -50,12 +77,33 @@ class _CalculationState extends State<Calculation> {
                     width: 40,
                   ),
                   Column(
+                    // TODO: make each entry for the column a stateless class and have the data sent to it on creation
                     children: <Widget>[
                       Text(
                         "Date from",
                         style: rowTitle,
                       ),
-                      DateButton()
+                      RaisedButton(
+                          child: Text(
+                            dateCheck(this.datefrom),
+                            style: temp,
+                          ),
+                          color: Colors.blue,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20)),
+                          onPressed: () {
+                            DatePicker.showDatePicker(
+                              context,
+                              theme: DatePickerTheme(),
+                              showTitleActions: true,
+                              currentTime: DateTime.now(),
+                              onConfirm: (dates) {
+                                setState(() {
+                                  this.datefrom = dates;
+                                });
+                              },
+                            );
+                          })
                       // Text("Select date")
                     ],
                   ),
@@ -65,7 +113,27 @@ class _CalculationState extends State<Calculation> {
                         "Date to",
                         style: rowTitle,
                       ),
-                      DateButton()
+                      RaisedButton(
+                          child: Text(
+                            dateCheck(this.dateto),
+                            style: temp,
+                          ),
+                          color: Colors.blue,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20)),
+                          onPressed: () {
+                            DatePicker.showDatePicker(
+                              context,
+                              theme: DatePickerTheme(),
+                              showTitleActions: true,
+                              currentTime: DateTime.now(),
+                              onConfirm: (dates) {
+                                setState(() {
+                                  this.dateto = dates;
+                                });
+                              },
+                            );
+                          })
                       // Text("Select date")
                     ],
                   ),
@@ -75,6 +143,19 @@ class _CalculationState extends State<Calculation> {
                 ],
               ),
               SizedBox(height: 50),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text("Total Hours :  ", style: rowTitle),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  Text("$totalHours", style: rowValue)
+                ], // date from - date to use datepicker
+              ),
+              SizedBox(
+                height: 30,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -129,31 +210,30 @@ class _CalculationState extends State<Calculation> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: PayButton(),
-    );
-  }
-
-  static double getHours(List<ShiftCard> shifts) {
-    double totalHours = 0;
-    for (var i = 0; i < shifts.length; i++) {
-      totalHours += shifts[i].getShiftLength();
-    }
-    return totalHours;
-  }
-}
-
-class PayButton extends StatelessWidget {
-  final TextStyle temp =
-      TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white);
-  @override
-  Widget build(BuildContext context) {
-    return FloatingActionButton.extended(
+      floatingActionButton: FloatingActionButton.extended(
         icon: Icon(Icons.attach_money),
         label: Text(
           "Calculate Pay",
           style: temp,
         ),
-        onPressed: null);
+        backgroundColor: Colors.cyanAccent[500],
+        onPressed: () {},
+      ),
+    );
+  }
+
+  static double getHours(
+      List<ShiftCard> shifts, DateTime date1, DateTime date2) {
+    double totalHours = 0;
+    for (var i = 0; i < shifts.length; i++) {
+      // if (shifts[i].date.isBefore(date2)) {
+      //   if (shifts[i].date.isAfter(date2)) {
+      //     totalHours += shifts[i].getShiftLength();
+      //   }
+      // }
+      totalHours += shifts[i].getShiftLength();
+    }
+    return totalHours;
   }
 }
 

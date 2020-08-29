@@ -66,7 +66,7 @@ class _HomeState extends State<Home> {
                               //go to calculation page maybe await response
                             },
                             icon: Icon(
-                              Icons.account_balance_sharp,
+                              Icons.account_balance,
                               color: Colors.white,
                               size: 40,
                             ),
@@ -82,7 +82,7 @@ class _HomeState extends State<Home> {
                               //go to details page and await response to add details to map
                             },
                             icon: Icon(
-                              Icons.account_circle_sharp,
+                              Icons.account_circle,
                               color: Colors.white,
                               size: 40,
                             ),
