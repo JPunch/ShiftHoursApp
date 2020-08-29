@@ -9,27 +9,16 @@ class Calculation extends StatefulWidget {
   _CalculationState createState() => _CalculationState(data["shiftls"]);
 }
 
-<<<<<<< HEAD
-class _CalculationState extends State<Calculation> {
-  //Calculation should return these values to screen
-  List<ShiftCard> shifts;
-=======
 // TODO: add button class into main page class and then access the buttons values for get shifts
 class _CalculationState extends State<Calculation> {
   //Calculation should return these values to screen
->>>>>>> hotfix
   double totalHours;
   Future<double> grossPay;
   Future<double> takeHomePay;
   Future<double> tax;
   Future<double> ni;
-<<<<<<< HEAD
-  DateButton dateFrom = DateButton();
-  DateButton dateTo = DateButton();
-=======
   DateTime datefrom;
   DateTime dateto;
->>>>>>> hotfix
   //The shifts to be used for the calculations from the shifts screen
   _CalculationState(this.shifts);
 
@@ -57,18 +46,12 @@ class _CalculationState extends State<Calculation> {
 
   @override
   Widget build(BuildContext context) {
-<<<<<<< HEAD
-    /*maybe add if statement to check if dateTo and DateFrom exist
-    before running the method for them*/
-    getHours(this.shifts);
-=======
     if (this.dateto != null) {
       if (this.datefrom != null) {
         this.totalHours = getHours(shifts, this.datefrom, this.dateto);
       }
     }
 
->>>>>>> hotfix
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blueGrey[600],
@@ -85,11 +68,7 @@ class _CalculationState extends State<Calculation> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
               SizedBox(
-<<<<<<< HEAD
-                height: 30,
-=======
                 height: 50,
->>>>>>> hotfix
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -104,9 +83,6 @@ class _CalculationState extends State<Calculation> {
                         "Date from",
                         style: rowTitle,
                       ),
-<<<<<<< HEAD
-                      dateFrom
-=======
                       RaisedButton(
                           child: Text(
                             dateCheck(this.datefrom),
@@ -129,7 +105,6 @@ class _CalculationState extends State<Calculation> {
                             );
                           })
                       // Text("Select date")
->>>>>>> hotfix
                     ],
                   ),
                   Column(
@@ -138,9 +113,6 @@ class _CalculationState extends State<Calculation> {
                         "Date to",
                         style: rowTitle,
                       ),
-<<<<<<< HEAD
-                      dateTo
-=======
                       RaisedButton(
                           child: Text(
                             dateCheck(this.dateto),
@@ -163,7 +135,6 @@ class _CalculationState extends State<Calculation> {
                             );
                           })
                       // Text("Select date")
->>>>>>> hotfix
                     ],
                   ),
                   SizedBox(
@@ -251,14 +222,9 @@ class _CalculationState extends State<Calculation> {
     );
   }
 
-<<<<<<< HEAD
-  void getHours(List<ShiftCard> shifts) {
-    double totalHours = 0; //with base shifts 21.5 hours is total
-=======
   static double getHours(
       List<ShiftCard> shifts, DateTime date1, DateTime date2) {
     double totalHours = 0;
->>>>>>> hotfix
     for (var i = 0; i < shifts.length; i++) {
       // if (shifts[i].date.isBefore(date2)) {
       //   if (shifts[i].date.isAfter(date2)) {
@@ -306,34 +272,6 @@ class _DateButtonState extends State<DateButton> {
 
   @override
   Widget build(BuildContext context) {
-<<<<<<< HEAD
-    return FloatingActionButton.extended(
-      icon: Icon(Icons.attach_money),
-      label: Text(
-        "Calculate Pay",
-        style: temp,
-      ),
-      onPressed: () {},
-    );
-  }
-}
-
-class DateButton extends StatefulWidget {
-  String date;
-  static final TextStyle rowValue =
-      TextStyle(fontSize: 25, color: Colors.greenAccent);
-
-  @override
-  _DateButtonState createState() => _DateButtonState();
-}
-
-class _DateButtonState extends State<DateButton> {
-  String date;
-
-  @override
-  Widget build(BuildContext context) {
-=======
->>>>>>> hotfix
     return selector(this.date, context);
   }
 
