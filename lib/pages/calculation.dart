@@ -3,34 +3,80 @@ import '../classes/shift_card.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
 class Calculation extends StatefulWidget {
-  List<ShiftCard> shifts;
-  Calculation({Key key, @required this.shifts}) : super(key: key);
+  Map data;
+  Calculation({Key key, @required this.data}) : super(key: key);
   @override
-  _CalculationState createState() => _CalculationState(shifts);
+  _CalculationState createState() => _CalculationState(data["shiftls"]);
 }
 
+<<<<<<< HEAD
 class _CalculationState extends State<Calculation> {
   //Calculation should return these values to screen
   List<ShiftCard> shifts;
+=======
+// TODO: add button class into main page class and then access the buttons values for get shifts
+class _CalculationState extends State<Calculation> {
+  //Calculation should return these values to screen
+>>>>>>> hotfix
   double totalHours;
   Future<double> grossPay;
   Future<double> takeHomePay;
   Future<double> tax;
   Future<double> ni;
+<<<<<<< HEAD
   DateButton dateFrom = DateButton();
   DateButton dateTo = DateButton();
+=======
+  DateTime datefrom;
+  DateTime dateto;
+>>>>>>> hotfix
   //The shifts to be used for the calculations from the shifts screen
   _CalculationState(this.shifts);
 
   // text styles for rows
   final TextStyle rowTitle = TextStyle(fontSize: 25, color: Colors.grey);
   final TextStyle rowValue = TextStyle(fontSize: 25, color: Colors.greenAccent);
+  final TextStyle temp =
+      TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white);
+
+  String dateCheck(DateTime date) {
+    if (date == null) {
+      return "Select Date";
+    } else {
+      return formatDateTime(date);
+    }
+  }
+
+  String formatDateTime(DateTime date) {
+    if (date.day.toString().length == 1) {
+      return "0${date.day}/${date.month}/${date.year}";
+    } else {
+      return "${date.day}/${date.month}/${date.year}";
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     /*maybe add if statement to check if dateTo and DateFrom exist
     before running the method for them*/
     getHours(this.shifts);
+=======
+    if (this.dateto != null) {
+      if (this.datefrom != null) {
+        this.totalHours = getHours(shifts, this.datefrom, this.dateto);
+      }
+    }
+
+>>>>>>> hotfix
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.blueGrey[600],
+        title: Text(
+          "Get that PAY",
+          textAlign: TextAlign.center,
+        ),
+      ),
       backgroundColor: Colors.blueGrey[800],
       body: Padding(
         padding: const EdgeInsets.fromLTRB(10, 20, 10, 10),
@@ -38,24 +84,52 @@ class _CalculationState extends State<Calculation> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              // Text("Calculation page", style: TextStyle(fontSize: 25, color: Colors.white)),
               SizedBox(
+<<<<<<< HEAD
                 height: 30,
+=======
+                height: 50,
+>>>>>>> hotfix
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
                   SizedBox(
                     width: 30,
                   ),
-                  // TODO: add a button for select dates and then replace the button with the selected date
                   Column(
+                    // TODO: make each entry for the column a stateless class and have the data sent to it on creation
                     children: <Widget>[
                       Text(
                         "Date from",
                         style: rowTitle,
                       ),
+<<<<<<< HEAD
                       dateFrom
+=======
+                      RaisedButton(
+                          child: Text(
+                            dateCheck(this.datefrom),
+                            style: temp,
+                          ),
+                          color: Colors.blue,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20)),
+                          onPressed: () {
+                            DatePicker.showDatePicker(
+                              context,
+                              theme: DatePickerTheme(),
+                              showTitleActions: true,
+                              currentTime: DateTime.now(),
+                              onConfirm: (dates) {
+                                setState(() {
+                                  this.datefrom = dates;
+                                });
+                              },
+                            );
+                          })
+                      // Text("Select date")
+>>>>>>> hotfix
                     ],
                   ),
                   Column(
@@ -64,7 +138,32 @@ class _CalculationState extends State<Calculation> {
                         "Date to",
                         style: rowTitle,
                       ),
+<<<<<<< HEAD
                       dateTo
+=======
+                      RaisedButton(
+                          child: Text(
+                            dateCheck(this.dateto),
+                            style: temp,
+                          ),
+                          color: Colors.blue,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20)),
+                          onPressed: () {
+                            DatePicker.showDatePicker(
+                              context,
+                              theme: DatePickerTheme(),
+                              showTitleActions: true,
+                              currentTime: DateTime.now(),
+                              onConfirm: (dates) {
+                                setState(() {
+                                  this.dateto = dates;
+                                });
+                              },
+                            );
+                          })
+                      // Text("Select date")
+>>>>>>> hotfix
                     ],
                   ),
                   SizedBox(
@@ -140,13 +239,32 @@ class _CalculationState extends State<Calculation> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: PayButton(),
+      floatingActionButton: FloatingActionButton.extended(
+        icon: Icon(Icons.attach_money),
+        label: Text(
+          "Calculate Pay",
+          style: temp,
+        ),
+        backgroundColor: Colors.cyanAccent[500],
+        onPressed: () {},
+      ),
     );
   }
 
+<<<<<<< HEAD
   void getHours(List<ShiftCard> shifts) {
     double totalHours = 0; //with base shifts 21.5 hours is total
+=======
+  static double getHours(
+      List<ShiftCard> shifts, DateTime date1, DateTime date2) {
+    double totalHours = 0;
+>>>>>>> hotfix
     for (var i = 0; i < shifts.length; i++) {
+      // if (shifts[i].date.isBefore(date2)) {
+      //   if (shifts[i].date.isAfter(date2)) {
+      //     totalHours += shifts[i].getShiftLength();
+      //   }
+      // }
       totalHours += shifts[i].getShiftLength();
     }
     this.totalHours = totalHours;
@@ -174,11 +292,21 @@ class _CalculationState extends State<Calculation> {
   }
 }
 
-class PayButton extends StatelessWidget {
-  final TextStyle temp =
-      TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white);
+class DateButton extends StatefulWidget {
+  String date;
+  static final TextStyle rowValue =
+      TextStyle(fontSize: 15, color: Colors.greenAccent);
+
+  @override
+  _DateButtonState createState() => _DateButtonState();
+}
+
+class _DateButtonState extends State<DateButton> {
+  String date;
+
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     return FloatingActionButton.extended(
       icon: Icon(Icons.attach_money),
       label: Text(
@@ -204,6 +332,8 @@ class _DateButtonState extends State<DateButton> {
 
   @override
   Widget build(BuildContext context) {
+=======
+>>>>>>> hotfix
     return selector(this.date, context);
   }
 
