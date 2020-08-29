@@ -20,8 +20,8 @@ class _CalculationState extends State<Calculation> {
   DateTime datefrom;
   DateTime dateto;
   //The shifts to be used for the calculations from the shifts screen
+  List<ShiftCard> shifts;
   _CalculationState(this.shifts);
-
   // text styles for rows
   final TextStyle rowTitle = TextStyle(fontSize: 25, color: Colors.grey);
   final TextStyle rowValue = TextStyle(fontSize: 25, color: Colors.greenAccent);
@@ -74,7 +74,7 @@ class _CalculationState extends State<Calculation> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
                   SizedBox(
-                    width: 30,
+                    width: 40,
                   ),
                   Column(
                     // TODO: make each entry for the column a stateless class and have the data sent to it on creation
@@ -138,7 +138,7 @@ class _CalculationState extends State<Calculation> {
                     ],
                   ),
                   SizedBox(
-                    width: 30,
+                    width: 40,
                   )
                 ],
               ),
@@ -233,28 +233,7 @@ class _CalculationState extends State<Calculation> {
       // }
       totalHours += shifts[i].getShiftLength();
     }
-    this.totalHours = totalHours;
-  }
-
-  List<ShiftCard> getInDate(DateButton buttonFrom, DateButton buttonTo) {
-    List<ShiftCard> shiftsInDate;
-    List<String> dateFrom = buttonFrom.date.split("/");
-    List<String> dateTo = buttonTo.date.split("/");
-    DateTime dateTimeFrom = DateTime(
-        int.parse(dateFrom[2]), int.parse(dateFrom[1]), int.parse(dateFrom[0]));
-    DateTime dateTimeTo = DateTime(
-        int.parse(dateTo[2]), int.parse(dateFrom[1]), int.parse(dateFrom[0]));
-    for (ShiftCard shift in widget.shifts) {
-      DateTime current = shift.genDateTime();
-      if (current.isBefore(dateTimeTo)) {
-        if (current.isAfter(dateTimeFrom)) {
-          shiftsInDate.add(shift);
-        }
-      }
-      // make a datetime out of each shift nd then check is before
-      // add method to return a date time into shift card
-    }
-    return shiftsInDate;
+    return totalHours;
   }
 }
 
