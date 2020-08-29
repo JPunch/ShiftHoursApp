@@ -23,12 +23,6 @@ class _DetailsState extends State<Details> {
           child: Center(
             child: TextFormField(
               decoration: const InputDecoration(
-<<<<<<< HEAD
-                  icon: Icon(Icons.attach_money,
-                      size: 35), //locate lower, more central
-                  hintText: "How much do you get paid per hour?",
-                  labelText: "Pay Per Hour *"),
-=======
                   icon: Icon(Icons.attach_money),
                   labelText: "Pay Per Hour",
                   hintText: "How much do you earn per hour?"),
@@ -37,7 +31,6 @@ class _DetailsState extends State<Details> {
                     ? 'Only input numbers.'
                     : null;
               },
->>>>>>> hotfix
             ),
           ),
         ));
