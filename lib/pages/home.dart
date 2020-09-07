@@ -3,36 +3,40 @@ import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:test_flutter_app/main.dart';
 import '../classes/shift_card.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import '../main.dart';
 
 class Home extends StatefulWidget {
-  Map data = {
-    "shiftls": [
-      // dummy shifts
-      ShiftCard(
-          displayDate: "25/07/2020",
-          shiftStart: "09:00",
-          shiftEnd: "15:30",
-          date: DateTime(2020, 07, 25)),
-      ShiftCard(
-          displayDate: "26/07/2020",
-          shiftStart: "09:00",
-          shiftEnd: "17:00",
-          date: DateTime(2020, 07, 26)),
-      ShiftCard(
-          displayDate: "27/07/2020",
-          shiftStart: "11:00",
-          shiftEnd: "18:00",
-          date: DateTime(2020, 07, 27))
-    ]
-  };
-  Home({Key key}) : super(key: key);
+  // Map data = {
+  //   "shiftls": [
+  //     // dummy shifts
+  //     ShiftCard(
+  //         displayDate: "25/07/2020",
+  //         shiftStart: "09:00",
+  //         shiftEnd: "15:30",
+  //         date: DateTime(2020, 07, 25)),
+  //     ShiftCard(
+  //         displayDate: "26/07/2020",
+  //         shiftStart: "09:00",
+  //         shiftEnd: "17:00",
+  //         date: DateTime(2020, 07, 26)),
+  //     ShiftCard(
+  //         displayDate: "27/07/2020",
+  //         shiftStart: "11:00",
+  //         shiftEnd: "18:00",
+  //         date: DateTime(2020, 07, 27))
+  //   ]
+  // };
+  Map data;
+  Home({Key key, @required this.data}) : super(key: key);
   @override
-  _HomeState createState() => _HomeState(data["shiftls"]);
+  _HomeState createState() => _HomeState(data, data["shiftls"]);
 }
 
 class _HomeState extends State<Home> {
   List<ShiftCard> shifts;
-  _HomeState(this.shifts);
+  Map data;
+  // List<ShiftCard> shifts;
+  _HomeState(this.data, this.shifts);
 
   final TextStyle temp =
       TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white);
@@ -40,6 +44,8 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    // List<ShiftCard> shifts = data["shiftls"];
+
     // print("second page made it brah");
     List<Widget> shiftls = List();
     shiftls.add(SizedBox(height: 20));
@@ -61,6 +67,7 @@ class _HomeState extends State<Home> {
                       Expanded(
                         child: FlatButton.icon(
                             onPressed: () async {
+                              datat = data;
                               Navigator.pushNamed(context, "/calculation",
                                   arguments: data);
                               //go to calculation page maybe await response
@@ -145,6 +152,7 @@ class _HomeState extends State<Home> {
       showTitleActions: true,
       currentTime: DateTime.now(),
       onConfirm: (date) {
+        _date = date;
         if (date.day.toString().length == 1) {
           _displayDate = "0${date.day}/${date.month}/${date.year}";
         } else {

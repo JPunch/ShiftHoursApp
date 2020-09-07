@@ -1,27 +1,31 @@
 import 'package:flutter/material.dart';
 import '../classes/shift_card.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import '../classes/calculator.dart';
 
 class Calculation extends StatefulWidget {
   Map data;
   Calculation({Key key, @required this.data}) : super(key: key);
   @override
-  _CalculationState createState() => _CalculationState(data["shiftls"]);
+  _CalculationState createState() =>
+      _CalculationState(data["shiftls"], data["pay"]);
 }
 
 // TODO: add button class into main page class and then access the buttons values for get shifts
 class _CalculationState extends State<Calculation> {
   //Calculation should return these values to screen
   double totalHours;
-  Future<double> grossPay;
-  Future<double> takeHomePay;
-  Future<double> tax;
-  Future<double> ni;
+  double grossPay;
+  double takeHomePay;
+  double tax;
+  double ni;
   DateTime datefrom;
   DateTime dateto;
+  Duration days;
   //The shifts to be used for the calculations from the shifts screen
   List<ShiftCard> shifts;
-  _CalculationState(this.shifts);
+  double pay;
+  _CalculationState(this.shifts, this.pay);
   // text styles for rows
   final TextStyle rowTitle = TextStyle(fontSize: 25, color: Colors.grey);
   final TextStyle rowValue = TextStyle(fontSize: 25, color: Colors.greenAccent);
@@ -48,6 +52,7 @@ class _CalculationState extends State<Calculation> {
   Widget build(BuildContext context) {
     if (this.dateto != null) {
       if (this.datefrom != null) {
+        this.days = this.datefrom.difference(this.dateto);
         this.totalHours = getHours(shifts, this.datefrom, this.dateto);
       }
     }
@@ -217,7 +222,16 @@ class _CalculationState extends State<Calculation> {
           style: temp,
         ),
         backgroundColor: Colors.cyanAccent[500],
-        onPressed: () {},
+        onPressed: () {
+          setState(() {
+            Calculator resultCalc =
+                Calculator(shifts, days, this.totalHours, this.pay);
+            // grossPay = results[0];
+            // takeHomePay = results[1];
+            // tax = results[2];
+            // ni = results[3];
+          });
+        },
       ),
     );
   }
@@ -226,12 +240,13 @@ class _CalculationState extends State<Calculation> {
       List<ShiftCard> shifts, DateTime date1, DateTime date2) {
     double totalHours = 0;
     for (var i = 0; i < shifts.length; i++) {
-      // if (shifts[i].date.isBefore(date2)) {
-      //   if (shifts[i].date.isAfter(date2)) {
-      //     totalHours += shifts[i].getShiftLength();
-      //   }
-      // }
-      totalHours += shifts[i].getShiftLength();
+      DateTime currentDate = shifts[i].date;
+      if (currentDate.compareTo(date2) <= 0) {
+        if (currentDate.compareTo(date1) >= 0) {
+          totalHours += shifts[i].getShiftLength();
+        }
+      }
+      // totalHours += shifts[i].getShiftLength();
     }
     return totalHours;
   }
