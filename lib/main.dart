@@ -4,7 +4,8 @@ import 'package:test_flutter_app/pages/calculation.dart';
 import 'classes/shift_card.dart';
 import 'pages/home.dart';
 
-Map data = {
+Map datat = {
+  "pay": 9.0,
   "shiftls": [
     // dummy shifts
     ShiftCard(
@@ -28,9 +29,11 @@ void main() {
   runApp(MaterialApp(
     initialRoute: "/",
     routes: {
-      "/": (context) => Home(),
+      "/": (context) => Home(
+            data: datat,
+          ),
       "/calculation": (context) => Calculation(
-            data: data,
+            data: datat,
           ), //shifts: data["shiftls"]
       "/details": (context) => Details()
     },

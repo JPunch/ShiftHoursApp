@@ -21,16 +21,19 @@ class _DetailsState extends State<Details> {
         body: Padding(
           padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
           child: Center(
-            child: TextFormField(
-              decoration: const InputDecoration(
-                  icon: Icon(Icons.attach_money),
-                  labelText: "Pay Per Hour",
-                  hintText: "How much do you earn per hour?"),
-              validator: (String message) {
-                return message.contains(new RegExp(r'[A-Za_z]'))
-                    ? 'Only input numbers.'
-                    : null;
-              },
+            child: Container(
+              color: Colors.blueGrey[600],
+              child: TextFormField(
+                decoration: const InputDecoration(
+                    icon: Icon(Icons.attach_money),
+                    labelText: "Pay Per Hour",
+                    hintText: "How much do you earn per hour?"),
+                validator: (String message) {
+                  return message.contains(new RegExp(r'[A-Za_z]'))
+                      ? 'Only input numbers.'
+                      : null;
+                },
+              ),
             ),
           ),
         ));
